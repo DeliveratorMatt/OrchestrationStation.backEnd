@@ -1,6 +1,7 @@
 import db from "#db/client";
 import bcrypt from "bcrypt";
 
+// Creates a new user with a hashed password
 export async function createUser(username, password) {
     const hashedPassword = await bcrypt.hash(password, 10);
     const sql = `
@@ -16,6 +17,7 @@ export async function createUser(username, password) {
     return user;
 }
 
+// Retrieves all users from the database
 export async function getUsers() {
     const sql = `
     SELECT *
@@ -27,6 +29,7 @@ export async function getUsers() {
     return users;
 }
 
+// Retrieves a user by username and password, validating the password
 export async function getUserByUsernameAndPassword(username, password) {
   const sql = `
   SELECT *
@@ -44,7 +47,8 @@ export async function getUserByUsernameAndPassword(username, password) {
   return user;
 }
 
-export async function getUsersById(id) {
+// Retrieves a user by their ID
+export async function getUserById(id) {
     const sql = `
     SELECT *
     FROM users
