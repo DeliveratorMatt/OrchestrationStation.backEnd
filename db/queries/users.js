@@ -1,20 +1,31 @@
 import db from "#db/client";
 import bcrypt from "bcrypt";
 
-// Creates a new user with a hashed password
-export async function createUser(username, password) {
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const sql = `
-    INSERT INTO users
-        (username, password)
-    VALUES
-        ($1, $2)
-    RETURNING *
-    `;
-    const {
-        rows: [user]
-    } = await db.query(sql, [username, hashedPassword]);
-    return user;
+export async function createUser(
+  username,
+  password,
+  admin,
+  member_since,
+  email
+) {
+  const sql = `
+  INSERT INTO users
+    (username, password, admin, member_since, email)
+  VALUES
+    ($1, $2, $3, $4, $5)
+  RETURNING *
+  `;
+  const hashedPassword = await bcrypt.hash(password, 10);
+  const {
+    rows: [user],
+  } = await db.query(sql, [
+    username,
+    hashedPassword,
+    admin,
+    member_since,
+    email,
+  ]);
+  return user;
 }
 
 // Retrieves all users from the database
