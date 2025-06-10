@@ -2,35 +2,28 @@ import express from "express";
 const router = express.Router();
 export default router;
 
-//import necessary queries
 import {
   createInstrument,
   getAllInstruments,
   getInstrumentById,
   updateInstrument,
+  deleteInstrument,
 } from "#db/queries/instruments";
+
+import { addComment } from "#db/queries/comments";
 import requireBody from "#middleware/requireBody";
 import requireUser from "#middleware/requireUser";
+import requireAdmin from "#middleware/requireAdmin";
 
 router
   .route("/")
   .post(
     requireUser,
+    requireAdmin,
     requireBody[
       "family, name, description, range, famous_musicians, excerpts, scores, history"
     ],
     async (req, res) => {
-      //since this "require admin" code gets reused several places,
-      //it would be ideal to put it in a param, probably?
-      //or should we make a new middleware, requireAdmin??
-      let admin = req.user.admin;
-      if (!admin) {
-        return res
-          .status(403)
-          .send(
-            "You are not authorized to perform this action. Please see the About page to submit site feedback."
-          );
-      }
       const {
         family,
         name,
@@ -55,7 +48,7 @@ router
     }
   )
   .get(async (req, res) => {
-    let allInstruments = getAllInstruments();
+    let allInstruments = await getAllInstruments();
     res.send(allInstruments);
   });
 
@@ -68,11 +61,11 @@ router
   })
   .put(
     requireUser,
+    requireAdmin,
     requireBody[
       "family, name, description, range, famous_musicians, excerpts, scores, history"
     ],
     async (req, res) => {
-      //requireAdmin
       const {
         family,
         name,
@@ -95,4 +88,22 @@ router
       );
       res.send(updatedInstrument);
     }
-  );
+  )
+  .delete(requireUser, requireAdmin, async (req, res) => {
+    const id = req.instrument.id;
+    await deleteInstrument(id);
+    res.status(204).send("Instrument deleted.");
+  });
+
+router
+  .route("/:id/comments")
+  .post(requireUser, requireBody[("category", "content")], async (req, res) => {
+    const { category, content } = req.body;
+    const newComment = await addComment({
+      user_id: req.user.id,
+      category,
+      content,
+      instrument_id: req.instrument.id,
+    });
+    res.send(newComment);
+  });
