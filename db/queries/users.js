@@ -28,6 +28,19 @@ export async function createUser(
   return user;
 }
 
+// Retrieves all users from the database
+export async function getUsers() {
+    const sql = `
+    SELECT *
+    FROM users
+    `;
+    const {
+        rows: users
+    } = await db.query(sql);
+    return users;
+}
+
+// Retrieves a user by username and password, validating the password
 export async function getUserByUsernameAndPassword(username, password) {
   const sql = `
   SELECT *
@@ -45,14 +58,15 @@ export async function getUserByUsernameAndPassword(username, password) {
   return user;
 }
 
+// Retrieves a user by their ID
 export async function getUserById(id) {
-  const sql = `
-  SELECT *
-  FROM users
-  WHERE id = $1
-  `;
-  const {
-    rows: [user],
-  } = await db.query(sql, [id]);
-  return user;
+    const sql = `
+    SELECT *
+    FROM users
+    WHERE id = $1
+    `;
+    const {
+        rows: [user]
+    } = await db.query(sql, [id]);
+    return user;
 }
