@@ -26,4 +26,5 @@ async function seed() {
             history: `History of Instrument ${i + 1}`
         });
         instrumentIds.push(instrument.id);
-    }
+    };
+}
