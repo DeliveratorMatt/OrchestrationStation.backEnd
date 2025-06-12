@@ -36,14 +36,19 @@ CREATE TABLE instruments (
     history text NOT NULL
 );
 
-CREATE TABLE instrument_details (
-    instrument_id integer PRIMARY KEY,
-    FOREIGN KEY (instrument_id) REFERENCES instruments(id) ON DELETE CASCADE,
+CREATE TABLE instruments_musicians (
+    instrument_id PRIMARY KEY NOT NULL,
     famous_musicians text NOT NULL,
     famous_musicians_url text NOT NULL,
-    famous_excerpts_ text NOT NULL,
+    FOREIGN KEY (instrument_id) REFERENCES instruments(id) ON DELETE CASCADE
+);
+
+CREATE TABLE instruments_excerpts (
+    instrument_id PRIMARY KEY NOT NULL,
+    famous_excerpts text NOT NULL,
     famous_excerpts_url text NOT NULL,
-    score_url text NOT NULL
+    score_url text NOT NULL,
+    FOREIGN KEY (instrument_id) REFERENCES instruments(id) ON DELETE CASCADE
 );
 
 CREATE TABLE favorites (
