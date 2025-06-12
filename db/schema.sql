@@ -6,11 +6,21 @@ DROP TABLE IF EXISTS instruments;
 CREATE TABLE users (
     id serial PRIMARY KEY,
     username text UNIQUE NOT NULL,
-    password text NOT NULL,
-    email text UNIQUE NOT NULL,    
-    admin boolean NOT NULL DEFAULT false,
-    member_since timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP   
+    password text NOT NULL  
 );
+
+CREATE TABLE instruments (
+    id serial PRIMARY KEY,
+    instrument_name text NOT NULL,
+    description text NOT NULL,
+    range text NOT NULL,
+    famous_musicians text NOT NULL,
+    famous_excerpts text NOT NULL,
+    score_links text NOT NULL,
+    history text NOT NULL,
+    image_url text NOT NULL
+);
+
 
 CREATE TABLE comments (
     id serial PRIMARY KEY,
@@ -21,18 +31,6 @@ CREATE TABLE comments (
     instrument_id integer NOT NULL,
     FOREIGN KEY (instrument_id) REFERENCES instruments(id) ON DELETE CASCADE,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
-);
-
-
-CREATE TABLE instruments (
-    id serial PRIMARY KEY,
-    instrument_name text NOT NULL,
-    description text NOT NULL,
-    range text NOT NULL,
-    famous_musicians text NOT NULL,
-    famous_excerpts_&_works text NOT NULL,
-    score_links text NOT NULL,
-    history text NOT NULL
 );
 
 CREATE TABLE favorites (
