@@ -6,104 +6,85 @@ import {
   createInstrument,
   getAllInstruments,
   getInstrumentById,
-  updateInstrument,
-  deleteInstrument,
 } from "#db/queries/instruments";
 
 import { addComment } from "#db/queries/comments";
 import requireBody from "#middleware/requireBody";
 import requireUser from "#middleware/requireUser";
 import requireAdmin from "#middleware/requireAdmin";
+import { addFavoriteInstrument } from "#db/queries/favorites";
+import getUserFromToken from "#middleware/getUserFromToken";
 
 router
   .route("/")
+  .get(async (req, res) => {
+    const allInstruments = await getAllInstruments();
+    res.send(allInstruments);
+  })
   .post(
     requireUser,
     requireAdmin,
-    requireBody[
-      "family, name, description, range, famous_musicians, excerpts, scores, history"
-    ],
+    requireBody(
+      "instrument_name",
+      "description",
+      "range",
+      "famous_musicians",
+      "famous_excerpts",
+      "score_links",
+      "history",
+      "image_url"
+    ),
     async (req, res) => {
-      const {
-        family,
-        name,
-        description,
-        range,
-        famous_musicians,
-        excerpts,
-        scores,
-        history,
-      } = req.body;
-      const newInstr = await createInstrument(
-        family,
-        name,
-        description,
-        range,
-        famous_musicians,
-        excerpts,
-        scores,
-        history
-      );
-      res.send(newInstr);
+      const newInstrument = await createInstrument(req.body);
+      res.send(newInstrument);
     }
-  )
-  .get(async (req, res) => {
-    let allInstruments = await getAllInstruments();
-    res.send(allInstruments);
-  });
+  );
 
 router
   .route("/:id")
   .get(async (req, res) => {
-    const instrument = await getInstrumentById;
+    const instrument = await getInstrumentById(req.params.id);
     if (!instrument) return res.status(404).send("Instrument not found.");
     res.send(instrument);
   })
   .put(
     requireUser,
     requireAdmin,
-    requireBody[
-      "family, name, description, range, famous_musicians, excerpts, scores, history"
-    ],
+    requireBody(
+      "instrument_name",
+      "description",
+      "range",
+      "famous_musicians",
+      "famous_excerpts",
+      "score_links",
+      "history",
+      "image_url"
+    ),
     async (req, res) => {
-      const {
-        family,
-        name,
-        description,
-        range,
-        famous_musicians,
-        excerpts,
-        scores,
-        history,
-      } = req.body;
-      const updatedInstrument = await updateInstrument(
-        family,
-        name,
-        description,
-        range,
-        famous_musicians,
-        excerpts,
-        scores,
-        history
-      );
+      const updatedInstrument = await updateInstrument(req.params.id, req.body);
       res.send(updatedInstrument);
     }
   )
   .delete(requireUser, requireAdmin, async (req, res) => {
-    const id = req.instrument.id;
-    await deleteInstrument(id);
+    await deleteInstrument(req.params.id);
     res.status(204).send("Instrument deleted.");
   });
 
+router.route("/:id/favorite").post(getUserFromToken, async (req, res) => {
+  const userId = req.user.id;
+  const { instrumentId } = req.body;
+  const favInstrument = await addFavoriteInstrument(userId, instrumentId);
+  res.status(201).send(favInstrument);
+});
 router
   .route("/:id/comments")
-  .post(requireUser, requireBody[("category", "content")], async (req, res) => {
+  .post(requireUser, requireBody("category", "content"), async (req, res) => {
     const { category, content } = req.body;
     const newComment = await addComment({
       user_id: req.user.id,
+      instrument_id: req.params.id,
       category,
       content,
-      instrument_id: req.instrument.id,
     });
     res.send(newComment);
   });

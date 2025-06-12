@@ -3,6 +3,8 @@ const app = express();
 export default app;
 
 import usersRouter from "#api/users";
+import instrumentsRouter from "#api/instruments";
+import accountRouter from "#api/accounts";
 import getUserFromToken from "#middleware/getUserFromToken";
 import handlePostgresErrors from "#middleware/handlePostgresErrors";
 import cors from "cors";
@@ -16,10 +18,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(getUserFromToken);
+app.use("/public", express.static("public"));
 
 app.get("/", (req, res) => res.send("Hello, World!"));
 
+app.use("/instruments", instrumentsRouter);
 app.use("/users", usersRouter);
+app.use("/account",accountRouter);
 
 app.use(handlePostgresErrors);
 app.use((err, req, res, next) => {
