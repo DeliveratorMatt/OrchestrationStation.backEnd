@@ -2,12 +2,19 @@ import db from "#db/client";
 
 // Create a new instrument
 export async function createInstrument({ 
-  name, family, description, range, history }) {
+  name, family, description, imageUrl, range, 
+  famousMusicians, famousExcerpts, 
+  scoreUrl,  history }) {
   const { rows: [instrument] } = await db.query(
-    `INSERT INTO instruments (name, family, description, range, history)
-     VALUES ($1, $2, $3, $4, $5)
+    `INSERT INTO instruments (family, name, description, range, 
+    famousMusicians, famousExcerpts, 
+    scoreUrl,  history )
+     VALUES ($1, $2, $3, $4, $5, 
+     $6, $7, $8)
      RETURNING *`,
-    [name, family, description, range, history]
+    [family, name, description, range, 
+  famousMusicians, famousExcerpts, 
+  scoreUrl,  history ]
   );
   return instrument;
 };
