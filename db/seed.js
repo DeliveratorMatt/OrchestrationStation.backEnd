@@ -135,6 +135,10 @@ async function seed() {
     },
   ];
 
+  for (const piece of PIECES_SEED) {
+    await createPiece(piece);
+  };
+
   const COMMENTS_SEED = [
     {
       user_id: 1,
