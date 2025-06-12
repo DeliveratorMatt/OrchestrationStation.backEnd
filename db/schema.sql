@@ -71,7 +71,7 @@ CREATE TABLE bibliography (
     id serial PRIMARY KEY,
     title text NOT NULL,
     category text NOT NULL,
-    author text NOT NULL,
-    publication_year integer NOT NULL,
+    author text,
+    publication_year integer,
     url text NOT NULL,
 );
