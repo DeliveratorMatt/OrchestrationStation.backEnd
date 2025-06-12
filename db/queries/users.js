@@ -69,4 +69,31 @@ export async function getUserById(id) {
         rows: [user]
     } = await db.query(sql, [id]);
     return user;
-}
+};
+
+// Updates a user's information
+export async function updateUser(id, username, email) {
+  const sql = `
+  UPDATE users
+  SET username = $2, email = $3
+  WHERE id = $1
+  RETURNING *
+  `;
+  const {
+    rows: [user],
+  } = await db.query(sql, [id, username, email]);
+  return user;
+};
+
+// Deletes a user by their ID
+export async function deleteUser(id) {
+  const sql = `
+  DELETE FROM users
+  WHERE id = $1
+  RETURNING *
+  `;
+  const {
+    rows: [user],
+  } = await db.query(sql, [id]);
+  return user;
+};
