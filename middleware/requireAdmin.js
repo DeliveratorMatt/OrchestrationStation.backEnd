@@ -1,5 +1,5 @@
 /** Requires a logged-in user with the admin boolean set to true */
-export default async function requireUser(req, res, next) {
+export default async function requireAdmin(req, res, next) {
   if (!req.user.admin)
     return res
       .status(403)
