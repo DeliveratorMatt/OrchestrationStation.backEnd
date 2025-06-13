@@ -8,6 +8,7 @@ import {
   createPiece,
 } from "#db/queries/instruments.js";
 import { addFavorite } from "#db/queries/favorites.js";
+import { createBiblioEntry } from "#db/queries/biblio";
 
 await db.connect();
 await seed();
@@ -137,7 +138,7 @@ async function seed() {
 
   for (const piece of PIECES_SEED) {
     await createPiece(piece);
-  };
+  }
 
   const COMMENTS_SEED = [
     {
@@ -206,5 +207,75 @@ async function seed() {
 
   for (const favorite of FAVORITES_SEED) {
     await addFavorite(favorite);
+  }
+
+  const BIBLIOGRAPHY_SEED = [
+    {
+      title: "Wikipedia",
+      category: "Used on site",
+      author: "",
+      publication_year: "",
+      url: "https://www.wikipedia.org/",
+    },
+    {
+      title: "Samson Historical",
+      category: "Used on site",
+      author: "Hannah Reece",
+      publication_year: "",
+      url: "https://www.samsonhistorical.com/",
+    },
+    {
+      title: "YouTube",
+      category: "Used on site",
+      author: "",
+      publication_year: "",
+      url: "https://www.youtube.com/",
+    },
+    {
+      title: "IMSLP",
+      category: "Used on site",
+      author: "",
+      publication_year: "",
+      url: "https://www.imslp.org",
+    },
+    {
+      title: "The Instrument Place",
+      category: "Used on site",
+      author: "",
+      publication_year: "",
+      url: "https://www.theinstrumentplace.com/",
+    },
+    {
+      title: "Boss Bassoon",
+      category: "Used on site",
+      author: "",
+      publication_year: "",
+      url: "https://www.bossbassoon.com/judithleclair",
+    },
+    {
+      title: "New York Philharmonic",
+      category: "Used on site",
+      author: "",
+      publication_year: "",
+      url: "https://www.nyphil.org/",
+    },
+    {
+      title: "Music theory, explained with Oreos",
+      category: "Recommended",
+      author: "",
+      publication_year: "",
+      url: "https://www.classicfm.com/discover-music/humour/music-theory-oreos/",
+    },
+    {
+      title: "musictheory.net",
+      category: "Recommended",
+      author: "",
+      publication_year: "",
+      url: "https://www.musictheory.net/",
+    },
+  ];
+
+  for (const source of BIBLIOGRAPHY_SEED) {
+    await createBiblioEntry(source);
   }
 }
