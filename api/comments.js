@@ -6,6 +6,7 @@ import { getCommentsByInstrumentId, editComment, deleteComment } from #db/querie
 
 import requireBody from "#middleware/requireBody";
 import requireUser from "#middleware/requireUser";
+import requireAdmin from "#middleware/requireAdmin";
 
 router
     .route("/:id")
