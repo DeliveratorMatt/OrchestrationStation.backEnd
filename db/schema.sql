@@ -12,21 +12,9 @@ CREATE TABLE users (
     username text UNIQUE NOT NULL,
     password text NOT NULL,
     email text UNIQUE NOT NULL,    
-    admin boolean NOT NULL DEFAULT false,
-    member_since timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP   
+    admin boolean DEFAULT false,
+    member_since timestamp DEFAULT CURRENT_TIMESTAMP   
 );
-
-CREATE TABLE comments (
-    id serial PRIMARY KEY,
-    user_id integer NOT NULL,
-    category text NOT NULL,
-    content text NOT NULL,
-    created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    instrument_id integer NOT NULL,
-    FOREIGN KEY (instrument_id) REFERENCES instruments(id) ON DELETE CASCADE,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
-);
-
 
 CREATE TABLE instruments (
     id serial PRIMARY KEY,
@@ -37,15 +25,28 @@ CREATE TABLE instruments (
     history text NOT NULL
 );
 
+CREATE TABLE comments (
+    id serial PRIMARY KEY,
+    user_id integer NOT NULL,
+    category text NOT NULL,
+    content text NOT NULL,
+    created_at timestamp DEFAULT CURRENT_TIMESTAMP,
+    instrument_id integer NOT NULL,
+    FOREIGN KEY (instrument_id) REFERENCES instruments(id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
 CREATE TABLE instruments_musicians (
-    instrument_id integer PRIMARY KEY NOT NULL,
+    musicians_id serial PRIMARY KEY,
+    instrument_id integer NOT NULL,
     famous_musicians text NOT NULL,
     famous_musicians_url text NOT NULL,
     FOREIGN KEY (instrument_id) REFERENCES instruments(id) ON DELETE CASCADE
 );
 
 CREATE TABLE instruments_excerpts (
-    instrument_id integer PRIMARY KEY NOT NULL,
+    excerpts_id serial PRIMARY KEY,
+    instrument_id integer NOT NULL,
     famous_excerpts text NOT NULL,
     famous_excerpts_url text NOT NULL,
     score_url text NOT NULL,

@@ -22,10 +22,10 @@ router
     requireAdmin,
     requireBody["family, name, description, range, history"],
     async (req, res) => {
-      const { family, name, description, range, history } = req.body;
+      const { family, instrument_name, description, range, history } = req.body;
       const newInstr = await createInstrument(
         family,
-        name,
+        instrument_name,
         description,
         range,
         history
@@ -50,10 +50,10 @@ router
     requireAdmin,
     requireBody["family, name, description, range, history"],
     async (req, res) => {
-      const { family, name, description, range, history } = req.body;
+      const { family, instrument_name, description, range, history } = req.body;
       const updatedInstrument = await updateInstrument(
         family,
-        name,
+        instrument_name,
         description,
         range,
         history
