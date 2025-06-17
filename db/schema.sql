@@ -2,7 +2,8 @@ DROP TABLE IF EXISTS comments;
 DROP TABLE IF EXISTS favorites;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS instruments;
-DROP TABLE IF EXISTS instrument_details;
+DROP TABLE IF EXISTS instruments_musicians;
+DROP TABLE IF EXISTS instruments_excerpts;
 DROP TABLE IF EXISTS feedback;
 DROP TABLE IF EXISTS bibliography;
 
