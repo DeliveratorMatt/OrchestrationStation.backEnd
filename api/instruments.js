@@ -20,28 +20,14 @@ router
   .post(
     requireUser,
     requireAdmin,
-    requireBody[
-      "family, name, description, range, famous_musicians, excerpts, scores, history"
-    ],
+    requireBody["family, name, description, range, history"],
     async (req, res) => {
-      const {
-        family,
-        name,
-        description,
-        range,
-        famous_musicians,
-        excerpts,
-        scores,
-        history,
-      } = req.body;
+      const { family, name, description, range, history } = req.body;
       const newInstr = await createInstrument(
         family,
         name,
         description,
         range,
-        famous_musicians,
-        excerpts,
-        scores,
         history
       );
       res.send(newInstr);
@@ -62,28 +48,14 @@ router
   .put(
     requireUser,
     requireAdmin,
-    requireBody[
-      "family, name, description, range, famous_musicians, excerpts, scores, history"
-    ],
+    requireBody["family, name, description, range, history"],
     async (req, res) => {
-      const {
-        family,
-        name,
-        description,
-        range,
-        famous_musicians,
-        excerpts,
-        scores,
-        history,
-      } = req.body;
+      const { family, name, description, range, history } = req.body;
       const updatedInstrument = await updateInstrument(
         family,
         name,
         description,
         range,
-        famous_musicians,
-        excerpts,
-        scores,
         history
       );
       res.send(updatedInstrument);
