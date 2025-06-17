@@ -1,13 +1,13 @@
-import db from "#db/client.js";
+import db from "#db/client";
 import bcrypt from "bcrypt";
-import { createUser } from "#db/queries/users.js";
-import { addComment } from "#db/queries/comments.js";
+import { createUser } from "#db/queries/users";
+import { addComment } from "#db/queries/comments";
 import {
   createInstrument,
   createMusician,
   createPiece,
-} from "#db/queries/instruments.js";
-import { addFavorite } from "#db/queries/favorites.js";
+} from "#db/queries/instruments";
+import { addFavorite } from "#db/queries/favorites";
 import { createBiblioEntry } from "#db/queries/biblio";
 
 await db.connect();
