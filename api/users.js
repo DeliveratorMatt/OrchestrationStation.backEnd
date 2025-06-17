@@ -8,30 +8,24 @@ import { createToken } from "#utils/jwt";
 
 router
   .route("/register")
-  .post(
-    requireBody(["username", "password", "admin", "member_since", "email"]),
-    async (req, res) => {
-      const { username, password, admin, member_since, email } = req.body;
-      const user = await createUser(username, password);
+  .post(requireBody(["username", "password", "email"]), async (req, res) => {
+    const { username, password, email } = req.body;
+    const user = await createUser(username, password);
 
-      const token = await createToken({ id: user.id });
-      res.status(201).send(token);
-    }
-  );
+    const token = await createToken({ id: user.id });
+    res.status(201).send(token);
+  });
 
 router
   .route("/login")
-  .post(
-    requireBody(["username", "password", "admin", "member_since", "email"]),
-    async (req, res) => {
-      const { username, password, admin, member_since, email } = req.body;
-      const user = await getUserByUsernameAndPassword(username, password);
-      if (!user) return res.status(401).send("Invalid username or password.");
+  .post(requireBody(["username", "password"]), async (req, res) => {
+    const { username, password } = req.body;
+    const user = await getUserByUsernameAndPassword(username, password);
+    if (!user) return res.status(401).send("Invalid username or password.");
 
-      const token = await createToken({ id: user.id });
-      res.send(token);
-    }
-  );
+    const token = await createToken({ id: user.id });
+    res.send(token);
+  });
 
 router.route("/:username").get(async (req, res) => {
   const id = req.user.id;
