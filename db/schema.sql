@@ -1,10 +1,10 @@
 DROP TABLE IF EXISTS comments;
-DROP TABLE IF EXISTS favorites;
-DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS instruments;
 DROP TABLE IF EXISTS instruments_musicians;
 DROP TABLE IF EXISTS instruments_excerpts;
+DROP TABLE IF EXISTS favorites;
 DROP TABLE IF EXISTS feedback;
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS instruments;
 DROP TABLE IF EXISTS bibliography;
 
 CREATE TABLE users (
@@ -74,5 +74,5 @@ CREATE TABLE bibliography (
     category text NOT NULL,
     author text,
     publication_year integer,
-    url text NOT NULL,
+    url text NOT NULL
 );
