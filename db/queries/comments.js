@@ -46,3 +46,24 @@ export async function deleteComment(commentId, userId) {
   );
   return deleted;
 }
+
+export async function editComment({
+  user_id,
+  category,
+  content,
+  instrument_id,
+}) {
+  /* const {
+    rows: [entry],
+  } = await db.query(
+    `UPDATE comments
+     SET user_id = $1,
+         category = $2,
+         content = $3,
+         instrument_id = $4
+    WHERE 
+     RETURNING *`,
+    [category, content]
+  );
+  return entry; */
+}

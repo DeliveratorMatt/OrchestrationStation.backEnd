@@ -20,7 +20,7 @@ router
   .post(
     requireUser,
     requireAdmin,
-    requireBody["family, name, description, range, history"],
+    requireBody(["family, name, description, range, history"]),
     async (req, res) => {
       const { family, instrument_name, description, range, history } = req.body;
       const newInstr = await createInstrument(
@@ -48,7 +48,7 @@ router
   .put(
     requireUser,
     requireAdmin,
-    requireBody["family, name, description, range, history"],
+    requireBody(["family, name, description, range, history"]),
     async (req, res) => {
       const { family, instrument_name, description, range, history } = req.body;
       const updatedInstrument = await updateInstrument(
@@ -69,7 +69,7 @@ router
 
 router
   .route("/:id/comments")
-  .post(requireUser, requireBody[("category", "content")], async (req, res) => {
+  .post(requireUser, requireBody(["category", "content"]), async (req, res) => {
     const { category, content } = req.body;
     const newComment = await addComment({
       user_id: req.user.id,
