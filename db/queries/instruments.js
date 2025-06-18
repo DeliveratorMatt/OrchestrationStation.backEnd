@@ -42,6 +42,20 @@ export async function getInstrumentsByFamily(family) {
   return rows;
 }
 
+// Delete an instrument (by id)
+export async function deleteInstrument(instrument_id) {
+  const {
+    rows: [deleted],
+  } = await db.query(
+    `DELETE FROM comments WHERE instrument_id = $1 RETURNING *`,
+    [instrument_id]
+  );
+  return deleted;
+}
+
+//Edit an instrument
+export async function updateInstrument() {}
+
 // Create a new musician
 export async function createMusician({
   instrument_id,

@@ -21,7 +21,7 @@ router
   .post(
     requireUser,
     requireAdmin,
-    requireBody[("title", "category", "url")],
+    requireBody(["title", "category", "url"]),
     async (req, res) => {
       const { title, category, url, author, publication_year } = req.body;
       const newSource = await createBiblioEntry({
