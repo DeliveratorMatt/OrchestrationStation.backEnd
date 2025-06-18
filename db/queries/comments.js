@@ -19,19 +19,28 @@ export async function getCommentsByUserId(userId) {
 }
 
 // Add a comment to an instrument
-export async function addComment({ userId, category, content, instrumentId }) {
-  const { rows: [comment] } = await db.query(
+export async function addComment({
+  user_id,
+  category,
+  content,
+  instrument_id,
+}) {
+  const {
+    rows: [comment],
+  } = await db.query(
     `INSERT INTO comments (user_id, category, content, instrument_id)
      VALUES ($1, $2, $3, $4)
      RETURNING *`,
-    [userId, category, content, instrumentId]
+    [user_id, category, content, instrument_id]
   );
   return comment;
 }
 
 // Delete a comment (by id and user)
 export async function deleteComment(commentId, userId) {
-  const { rows: [deleted] } = await db.query(
+  const {
+    rows: [deleted],
+  } = await db.query(
     `DELETE FROM comments WHERE id = $1 AND user_id = $2 RETURNING *`,
     [commentId, userId]
   );

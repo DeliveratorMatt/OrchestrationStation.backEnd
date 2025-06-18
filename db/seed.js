@@ -1,5 +1,4 @@
 import db from "#db/client";
-import bcrypt from "bcrypt";
 import { createUser } from "#db/queries/users";
 import { addComment } from "#db/queries/comments";
 import {

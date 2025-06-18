@@ -1,13 +1,13 @@
 import db from "#db/client";
 import bcrypt from "bcrypt";
 
-export async function createUser(
+export async function createUser({
   username,
   password,
   admin,
   member_since,
-  email
-) {
+  email,
+}) {
   const sql = `
   INSERT INTO users
     (username, password, admin, member_since, email)
@@ -30,14 +30,12 @@ export async function createUser(
 
 // Retrieves all users from the database
 export async function getUsers() {
-    const sql = `
+  const sql = `
     SELECT *
     FROM users
     `;
-    const {
-        rows: users
-    } = await db.query(sql);
-    return users;
+  const { rows: users } = await db.query(sql);
+  return users;
 }
 
 // Retrieves a user by username and password, validating the password
@@ -60,16 +58,16 @@ export async function getUserByUsernameAndPassword(username, password) {
 
 // Retrieves a user by their ID
 export async function getUserById(id) {
-    const sql = `
+  const sql = `
     SELECT *
     FROM users
     WHERE id = $1
     `;
-    const {
-        rows: [user]
-    } = await db.query(sql, [id]);
-    return user;
-};
+  const {
+    rows: [user],
+  } = await db.query(sql, [id]);
+  return user;
+}
 
 // Updates a user's information
 export async function updateUser(id, username, email) {
@@ -83,7 +81,7 @@ export async function updateUser(id, username, email) {
     rows: [user],
   } = await db.query(sql, [id, username, email]);
   return user;
-};
+}
 
 // Deletes a user by their ID
 export async function deleteUser(id) {
@@ -96,4 +94,4 @@ export async function deleteUser(id) {
     rows: [user],
   } = await db.query(sql, [id]);
   return user;
-};
+}

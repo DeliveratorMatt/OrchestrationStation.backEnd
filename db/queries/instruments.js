@@ -82,7 +82,7 @@ export async function createPiece({
   const {
     rows: [piece],
   } = await db.query(
-    `INSERT INTO pieces (instrument_id, famous_excerpts, famous_excerpts_url, score_url)
+    `INSERT INTO instruments_excerpts (instrument_id, famous_excerpts, famous_excerpts_url, score_url)
      VALUES ($1, $2, $3, $4)
      RETURNING *`,
     [instrument_id, famous_excerpts, famous_excerpts_url, score_url]
