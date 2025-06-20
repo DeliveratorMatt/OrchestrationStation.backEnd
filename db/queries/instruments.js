@@ -106,14 +106,13 @@ export async function createPiece({
 // Get all pieces for an instrument
 export async function getPiecesByInstrumentId(instrument_id) {
   const { rows } = await db.query(
-    `SELECT * FROM pieces WHERE instrument_id = $1`,
+    `SELECT * FROM instruments_excerpts WHERE instrument_id = $1`,
     [instrument_id]
   );
   return rows;
 }
 // Get all pieces
 export async function getAllPieces() {
-  const { rows } = await db.query(`SELECT * FROM pieces`);
+  const { rows } = await db.query(`SELECT * FROM instruments_excerpts`);
   return rows;
 }
-// Get all instruments with their musicians and pieces
