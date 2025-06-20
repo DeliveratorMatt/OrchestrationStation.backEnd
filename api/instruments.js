@@ -8,6 +8,8 @@ import {
   getInstrumentById,
   updateInstrument,
   deleteInstrument,
+  getMusiciansByInstrumentId,
+  getPiecesByInstrumentId,
 } from "#db/queries/instruments";
 
 import { addComment } from "#db/queries/comments";
@@ -38,12 +40,26 @@ router
     res.send(allInstruments);
   });
 
+router.param("id", async (req, res, next, id) => {
+  const instrument = await getInstrumentById(id);
+  if (!instrument) return res.status(404).send("Instrument not found.");
+  req.instrument = instrument;
+  next();
+});
+
 router
   .route("/:id")
   .get(async (req, res) => {
-    const instrument = await getInstrumentById;
-    if (!instrument) return res.status(404).send("Instrument not found.");
-    res.send(instrument);
+    const id = req.params.id;
+    try {
+      const musicians = await getMusiciansByInstrumentId(id);
+      const excerpts = await getPiecesByInstrumentId(id);
+      instrument.musicians = musicians;
+      instrument.excerpts = excerpts;
+      res.send(instrument);
+    } catch (err) {
+      next(err);
+    }
   })
   .put(
     requireUser,
