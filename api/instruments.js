@@ -49,16 +49,17 @@ router.param("id", async (req, res, next, id) => {
 
 router
   .route("/:id")
-  .get(async (req, res) => {
+  .get(async (req, res, next) => {
     const id = req.params.id;
     try {
       const musicians = await getMusiciansByInstrumentId(id);
       const excerpts = await getPiecesByInstrumentId(id);
+      const instrument = req.instrument;
       instrument.musicians = musicians;
       instrument.excerpts = excerpts;
       res.send(instrument);
     } catch (err) {
-      next(err);
+      next();
     }
   })
   .put(
