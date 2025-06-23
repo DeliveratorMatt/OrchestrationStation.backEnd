@@ -20,7 +20,7 @@ export async function createBiblioEntry({
 
 export async function getBiblioEntries() {
   const { rows } = await db.query(
-    `SELECT * FROM biblio 
+    `SELECT * FROM bibliography
     ORDER BY publication_year DESC`
   );
   return rows;
@@ -30,7 +30,7 @@ export async function getBiblioEntryById(id) {
   const {
     rows: [entry],
   } = await db.query(
-    `SELECT * FROM biblio 
+    `SELECT * FROM bibliography
     WHERE id = $1`,
     [id]
   );
@@ -42,7 +42,7 @@ export async function updateBiblioEntry(id, updates) {
   const {
     rows: [entry],
   } = await db.query(
-    `UPDATE biblio
+    `UPDATE bibliography
      SET title = COALESCE($1, title),
          author = COALESCE($2, author),
          publication_year = COALESCE($3, publicationYear),
@@ -58,13 +58,15 @@ export async function updateBiblioEntry(id, updates) {
 export async function deleteBiblioEntry(id) {
   const {
     rows: [deleted],
-  } = await db.query(`DELETE FROM biblio WHERE id = $1 RETURNING *`, [id]);
+  } = await db.query(`DELETE FROM bibliography WHERE id = $1 RETURNING *`, [
+    id,
+  ]);
   return deleted;
 }
 
 export async function getBiblioEntriesByCategory(category) {
   const { rows } = await db.query(
-    `SELECT * FROM biblio 
+    `SELECT * FROM bibliography 
     WHERE category = $1 
     ORDER BY publication_year DESC`,
     [category]
@@ -73,7 +75,7 @@ export async function getBiblioEntriesByCategory(category) {
 }
 export async function getBiblioEntriesByAuthor(author) {
   const { rows } = await db.query(
-    `SELECT * FROM biblio 
+    `SELECT * FROM bibliography 
     WHERE author ILIKE $1 
     ORDER BY publication_year DESC`,
     [`%${author}%`]
