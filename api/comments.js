@@ -3,6 +3,7 @@ const router = express.Router();
 export default router;
 
 import {
+  addComment,
   getCommentsByInstrumentId,
   editComment,
   deleteComment,
@@ -14,6 +15,24 @@ import requireAdmin from "#middleware/requireAdmin";
 
 router
   .route("/:id")
+  .get(async (req, res) => {
+    const comments = await getCommentsByInstrumentId(Number(req.params.id));
+    res.send(comments);
+  })
+  .post(
+    requireBody(["category", "content", "user_id", "instrument_id"]),
+    async (req, res) => {
+      const { category, content, user_id, instrument_id } = req.body;
+
+      const newComment = await addComment({
+        user_id,
+        category,
+        content,
+        instrument_id,
+      });
+      res.send(newComment);
+    }
+  )
   .put(
     requireUser,
     requireAdmin,
