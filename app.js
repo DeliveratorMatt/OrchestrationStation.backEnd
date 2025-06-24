@@ -6,6 +6,7 @@ import usersRouter from "#api/users";
 import aboutRouter from "#api/about";
 import biblioRouter from "#api/biblio";
 import commentsRouter from "#api/comments";
+import feedbackRouter from "#api/feedback";
 import instrumentsRouter from "#api/instruments";
 import getUserFromToken from "#middleware/getUserFromToken";
 import handlePostgresErrors from "#middleware/handlePostgresErrors";
@@ -26,9 +27,10 @@ app.get("/", (req, res) => res.send("Hello, World!"));
 app.use("/images", express.static("public/images"));
 app.use("/users", usersRouter);
 app.use("/about", aboutRouter);
-app.use("/biblio", biblioRouter);
+app.use("/bibliography", biblioRouter);
 app.use("/comments", commentsRouter);
 app.use("/instruments", instrumentsRouter);
+app.use("/feedback", feedbackRouter);
 
 app.use(handlePostgresErrors);
 app.use((err, req, res, next) => {

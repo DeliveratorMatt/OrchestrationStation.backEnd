@@ -3,19 +3,19 @@ import db from "#db/client";
 // Create a new instrument
 export async function createInstrument({
   instrument_name,
+  image_url,
   family,
   description,
   range,
   history,
-  image_url,
 }) {
   const {
     rows: [instrument],
   } = await db.query(
-    `INSERT INTO instruments (instrument_name, family, description, range, history, image_url)
+    `INSERT INTO instruments (instrument_name, image_url, family, description, range, history)
      VALUES ($1, $2, $3, $4, $5, $6)
      RETURNING *`,
-    [instrument_name, family, description, range, history, image_url]
+    [instrument_name, image_url, family, description, range, history]
   );
   return instrument;
 }
