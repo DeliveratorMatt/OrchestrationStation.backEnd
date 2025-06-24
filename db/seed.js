@@ -19,7 +19,7 @@ async function seed() {
     {
       family: "Strings",
       instrument_name: "Violin",
-      image_url: "db/images/violinImage.jpg",
+      image_url: "/images/violinImage.jpg",
       description:
         "Soprano of the string family, both agile and lyrical, equally capable of producing heartbreaking elegies and joyful reels.",
       range: "G3-A7",
@@ -29,7 +29,7 @@ async function seed() {
     {
       family: "Winds",
       instrument_name: "Bassoon",
-      image_url: "db/images/bassonImage.jpg",
+      image_url: "/images/bassonImage.jpg",
       description:
         "The baritone of the winds, the bassoon has a full-bodied sound, though it can be either jolly or threatening in its lower registers.",
       range: "Bb1-C5",
@@ -39,7 +39,7 @@ async function seed() {
     {
       family: "Brass",
       instrument_name: "Trombone (Tenor)",
-      image_url: "db/images/tromboneImage.jpg",
+      image_url: "/images/tromboneImage.jpg",
       description:
         "A middle-range instrument of the brass family, equally capable of taking the melodic lead or of providing harmonic support to higher-pitched instruments.",
       range: "E2-Bb4",
