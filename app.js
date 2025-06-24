@@ -23,6 +23,7 @@ app.use(getUserFromToken);
 
 app.get("/", (req, res) => res.send("Hello, World!"));
 
+app.use("/images", express.static("public/images"));
 app.use("/users", usersRouter);
 app.use("/about", aboutRouter);
 app.use("/biblio", biblioRouter);

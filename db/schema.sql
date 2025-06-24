@@ -22,7 +22,8 @@ CREATE TABLE instruments (
     instrument_name text NOT NULL,
     description text NOT NULL,
     range text NOT NULL,
-    history text NOT NULL
+    history text NOT NULL,
+    image_url text
 );
 
 CREATE TABLE comments (

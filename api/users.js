@@ -11,7 +11,7 @@ router
   .post(requireBody(["username", "password", "email"]), async (req, res) => {
     const { username, password, email } = req.body;
     const user = await createUser(username, password, email);
-    const token = await createToken({ id: user.id });
+    const token = createToken({ id: user.id });
     res.status(201).send(token);
   });
 
@@ -22,7 +22,7 @@ router
     const user = await getUserByUsernameAndPassword(username, password);
     if (!user) return res.status(401).send("Invalid username or password.");
 
-    const token = await createToken({ id: user.id });
+    const token = createToken({ id: user.id });
     res.send(token);
   });
 

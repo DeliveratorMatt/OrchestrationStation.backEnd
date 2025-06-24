@@ -7,14 +7,15 @@ export async function createInstrument({
   description,
   range,
   history,
+  image_url,
 }) {
   const {
     rows: [instrument],
   } = await db.query(
-    `INSERT INTO instruments (instrument_name, family, description, range, history)
-     VALUES ($1, $2, $3, $4, $5)
+    `INSERT INTO instruments (instrument_name, family, description, range, history, image_url)
+     VALUES ($1, $2, $3, $4, $5, $6)
      RETURNING *`,
-    [instrument_name, family, description, range, history]
+    [instrument_name, family, description, range, history, image_url]
   );
   return instrument;
 }

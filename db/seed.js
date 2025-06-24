@@ -23,7 +23,8 @@ async function seed() {
         "Soprano of the string family, both agile and lyrical, equally capable of producing heartbreaking elegies and joyful reels.",
       range: "G3-A7",
       history:
-        "https://www.samsonhistorical.com/blogs/reliving-history/the-violin?srsltid=AfmBOoqEFBNTc8lDQ81d2PPSn_glMti8ggO7H-eOHU2d3wFd1JRjhv-w",
+        "https://www.samsonhistorical.com/blogs/reliving-history/the-violin",
+      image_url: "/images/violin.webp",
     },
     {
       family: "Winds",
@@ -31,8 +32,8 @@ async function seed() {
       description:
         "The baritone of the winds, the bassoon has a full-bodied sound, though it can be either jolly or threatening in its lower registers.",
       range: "Bb1-C5",
-      history:
-        "https://www.theinstrumentplace.com/history-of-the-bassoon?srsltid=AfmBOor0VB1wU_XhNzF72nVOFlvPqoWEPpf2ckN81BHMEskEE7qk4eEk",
+      history: "https://www.theinstrumentplace.com/history-of-the-bassoon",
+      image_url: "/images/bassoon.webp",
     },
     {
       family: "Brass",
@@ -40,8 +41,8 @@ async function seed() {
       description:
         "A middle-range instrument of the brass family, equally capable of taking the melodic lead or of providing harmonic support to higher-pitched instruments.",
       range: "E2-Bb4",
-      history:
-        "https://www.theinstrumentplace.com/history-of-the-trombone?srsltid=AfmBOopkjZ39uZTtRW9qM49X2xT6QhVIAAJCdFEI2K5GODnXfhcPyyfk",
+      history: "https://www.theinstrumentplace.com/history-of-the-trombone",
+      image_url: "/images/trombone.jpg",
     },
   ];
 
@@ -117,15 +118,13 @@ async function seed() {
       famous_excerpts_url: "https://www.youtube.com/watch?v=tQjh9Z71RJ4",
       score_url: "https://imslp.org/wiki/Tzigane%2C_M.76_(Ravel%2C_Maurice)",
     },
-
     {
       instrument_id: 2,
-      famous_excerpts: "Stravinsky - The Rite of Spring (first minute)",
+      famous_excerpts: "Stravinsky - The Rite of Spring",
       famous_excerpts_url: "https://www.youtube.com/watch?v=-AwJVunm42w",
       score_url:
         "https://imslp.org/wiki/The_Rite_of_Spring,_K015_(Stravinsky,_Igor)",
     },
-
     {
       instrument_id: 3,
       famous_excerpts: "Rimsky-Korsakov - Russian Easter Overture",
@@ -190,18 +189,9 @@ async function seed() {
   }
 
   const FAVORITES_SEED = [
-    {
-      user_id: "1",
-      instrument_id: "1",
-    },
-    {
-      user_id: "1",
-      instrument_id: "3",
-    },
-    {
-      user_id: "2",
-      instrument_id: "1",
-    },
+    { user_id: 1, instrument_id: 1 },
+    { user_id: 1, instrument_id: 3 },
+    { user_id: 2, instrument_id: 1 },
   ];
 
   for (const favorite of FAVORITES_SEED) {
