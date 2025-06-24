@@ -18,6 +18,7 @@ CREATE TABLE users (
 
 CREATE TABLE instruments (
     id serial PRIMARY KEY,
+    image_url text NOT NULL,
     family text NOT NULL,
     instrument_name text NOT NULL,
     description text NOT NULL,
@@ -77,3 +78,4 @@ CREATE TABLE bibliography (
     publication_year integer,
     url text NOT NULL
 );
+

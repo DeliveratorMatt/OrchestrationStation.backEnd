@@ -25,7 +25,7 @@ app.get("/", (req, res) => res.send("Hello, World!"));
 
 app.use("/users", usersRouter);
 app.use("/about", aboutRouter);
-app.use("/biblio", biblioRouter);
+app.use("/bibliography", biblioRouter);
 app.use("/comments", commentsRouter);
 app.use("/instruments", instrumentsRouter);
 
