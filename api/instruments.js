@@ -50,6 +50,7 @@ router.param("id", async (req, res, next, id) => {
 router
   .route("/:id")
   .get(async (req, res, next) => {
+    //should this be req.instrument.id here??
     const id = req.params.id;
     try {
       const musicians = await getMusiciansByInstrumentId(id);
