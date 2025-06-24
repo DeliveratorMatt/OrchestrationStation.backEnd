@@ -17,7 +17,7 @@ router
   .route("/")
   .get(async (req, res) => {
     let sources = await getBiblioEntries();
-    res.status(204).send(sources);
+    res.status(200).send(sources);
   })
   .post(
     requireUser,
@@ -43,22 +43,8 @@ router.param("id", async (req, res, next, id) => {
   next();
 });
 
-router
-  .route("/:id")
-  .get(async (req, res, next) => {
-    const id = req.source.id;
-    try {
-      source.title = title;
-      source.author = author;
-      source.publicationYear = publication_year;
-      source.category = category;
-      source.url = url;
-    } catch (err) {
-      next();
-    }
-  })
-  .delete(requireUser, requireAdmin, async (req, res) => {
-    const id = req.source.id;
-    await deleteBiblioEntry(id);
-    res.status(204).send("Source deleted.");
-  });
+router.route("/:id").delete(requireUser, requireAdmin, async (req, res) => {
+  const id = req.source.id;
+  await deleteBiblioEntry(id);
+  res.status(204).send("Source deleted.");
+});
