@@ -12,7 +12,11 @@ router
     const { username, password, email } = req.body;
     const user = await createUser(username, password, email);
     const token = await createToken({ id: user.id });
-    res.status(201).send(token);
+    const userId = user.id;
+    res.send(201).send({
+      token: token,
+      userId: userId,
+    });
   });
 
 router
@@ -23,7 +27,12 @@ router
     if (!user) return res.status(401).send("Invalid username or password.");
 
     const token = await createToken({ id: user.id });
-    res.send(token);
+    console.log(user.id, token);
+    const userId = user.id;
+    res.send({
+      token: token,
+      userId: userId,
+    });
   });
 
 router.route("/:username").get(async (req, res) => {
