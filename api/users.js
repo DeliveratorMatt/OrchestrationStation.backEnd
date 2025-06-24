@@ -10,10 +10,10 @@ router
   .route("/register")
   .post(requireBody(["username", "password", "email"]), async (req, res) => {
     const { username, password, email } = req.body;
-    const user = await createUser(username, password, email);
+    const user = await createUser({ username, password, email });
     const token = await createToken({ id: user.id });
     const userId = user.id;
-    res.send(201).send({
+    res.status(201).send({
       token: token,
       userId: userId,
     });
